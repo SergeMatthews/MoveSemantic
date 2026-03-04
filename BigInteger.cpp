@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 
 class big_integer
@@ -88,8 +88,14 @@ public:
 
         return *this;
     }
-    friend std::ostream& operator<< (std::ostream& os, const big_integer& ex);
+    big_integer operator* (int coeff)
+    {
+        big_integer result(this->number);
+        result *= coeff;
 
+        return result;
+    }
+    friend std::ostream& operator<< (std::ostream& os, const big_integer& ex);
 };
 
 std::ostream& operator<< (std::ostream& os, const big_integer& ex)
@@ -98,7 +104,7 @@ std::ostream& operator<< (std::ostream& os, const big_integer& ex)
         os << '0';
     else
         os << ex.number;
-
+    
     return os;
 }
 
@@ -108,8 +114,13 @@ int main()
     auto number2 = big_integer("78524");
     auto result = number1 + number2;
     std::cout << result << std::endl;
+
+    auto number3 = big_integer("114575");
+    auto result2 = number3 * 78524;
+    std::cout << result2 << std::endl;
+
     number1 *= 78524;
     std::cout << number1 << std::endl;
-
+    
     return EXIT_SUCCESS;
 }
